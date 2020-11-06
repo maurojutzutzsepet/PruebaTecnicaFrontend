@@ -1,6 +1,6 @@
 import React from "react";
 import clsx from "clsx";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -18,11 +18,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/FolderOpen";
 import useStyles from "./styles";
 import ListComponents from "../routes";
-import {
-  BrowserRouter as Router,
-  withRouter,
-  useHistory,
-} from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
 import SwitchRouter from "../switch";
 
 function SideBar() {

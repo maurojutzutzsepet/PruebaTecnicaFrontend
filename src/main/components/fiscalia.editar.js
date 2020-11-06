@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import * as Actions from "./store/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Button, MenuItem, Select, TextField } from "@material-ui/core";
+import { Box, MenuItem, Select } from "@material-ui/core";
+import InputLabel from "../../global/inputs/iputslabes";
+import SaveIcon from "@material-ui/icons/Save";
 export default function FiscaliaEditar() {
   const params = useParams();
   const dispatch = useDispatch();
@@ -15,6 +17,7 @@ export default function FiscaliaEditar() {
   const [correo, setCorreo] = useState("");
   const [telefono, setTelefono] = useState("");
   const [departamento, setDepartamento] = useState("");
+  const history = useHistory();
 
   useEffect(() => {
     const obj = {
@@ -24,7 +27,7 @@ export default function FiscaliaEditar() {
     return () => {
       dispatch(Actions.clearAll());
     };
-  }, []);
+  }, [dispatch, params.id]);
 
   useEffect(() => {
     if (state) {
@@ -47,58 +50,45 @@ export default function FiscaliaEditar() {
       departamento: departamento,
     };
     dispatch(Actions.editarFiscalia(obj));
+    history.push("/fiscalias");
   };
 
   return (
     <div>
-      Editar Fisclia
+      Editar Fiscalia
       {state?.length ? (
         <>
           <Box display="flex" style={{ backgroundColor: "white" }}>
-            <TextField
-              id="ee"
-              style={{ margin: 8 }}
-              placeholder="Nombre"
-              fullWidth
-              margin="normal"
-              variant="filled"
+            <InputLabel
+              id={"idnombre"}
+              placeholder={"Nombre"}
               defaultValue={state[0]?.nombre}
-              onChange={(e) => setnombre(e.target.value)}
-              InputLabelProps={{
-                shrink: true,
-              }}
+              onchange={(e) => setnombre(e.target.value)}
             />
-            <TextField
-              id="cordinador"
-              style={{ margin: 8 }}
-              placeholder="Coordinador"
-              fullWidth
+            <InputLabel
+              id={"coordinador"}
+              placeholder={"Cordinador"}
               defaultValue={state[0]?.coordinador}
-              onChange={(e) => setCordinador(e.target.value)}
-              margin="normal"
-              variant="filled"
-              InputLabelProps={{
-                shrink: true,
-              }}
+              onchange={(e) => setCordinador(e.target.value)}
             />
           </Box>
           <Box display="flex" style={{ backgroundColor: "white" }}>
-            <TextField
-              id="filled-full-width"
-              style={{ margin: 8 }}
-              placeholder="Correo"
-              fullWidth
+            <InputLabel
+              id={"correo"}
+              placeholder={"Correo"}
               defaultValue={state[0]?.correo}
-              onChange={(e) => setCorreo(e.target.value)}
-              margin="normal"
-              variant="filled"
-              InputLabelProps={{
-                shrink: true,
-              }}
+              onchange={(e) => setCorreo(e.target.value)}
             />
+            <InputLabel
+              id={"telefono"}
+              placeholder={"Telefono"}
+              defaultValue={state[0]?.telefono}
+              onchange={(e) => setTelefono(e.target.value)}
+            />
+          </Box>
+          <Box display="flex" style={{ backgroundColor: "white" }}>
             <Select
-              id="filled-full-width"
-              className="text-withe"
+              className="m-2"
               type="submit"
               fullWidth
               defaultValue={state[0]?.departamento}
@@ -111,34 +101,17 @@ export default function FiscaliaEditar() {
               <MenuItem value={3}>Peten</MenuItem>
               <MenuItem value={4}>Solola</MenuItem>
             </Select>
+            <div className="w-full"></div>
           </Box>
-          <Box display="flex" style={{ backgroundColor: "white" }}>
-            <TextField
-              id="filled-full-width"
-              style={{ margin: 8 }}
-              placeholder="Telefono"
-              fullWidth
-              defaultValue={state[0]?.telefono}
-              onChange={(e) => setTelefono(e.target.value)}
-              margin="normal"
-              variant="filled"
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-          </Box>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => onSubmit()}
-            style={{
-              backgroundColor: "#EFDD42",
-              margin: "10px",
-              color: "black",
-            }}
-          >
-            Editar
-          </Button>
+          <div className="flex justify-end m-4">
+            <button
+              onClick={() => onSubmit()}
+              className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded-full"
+            >
+              <SaveIcon />
+              Editar
+            </button>
+          </div>
         </>
       ) : null}
     </div>

@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import { Box, Button, MenuItem, Select, TextField } from "@material-ui/core";
+import { Box, MenuItem, Select } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import * as Actions from "./store/actions";
+import InputLabel from "../../global/inputs/iputslabes";
+import SaveIcon from "@material-ui/icons/Save";
+import { useHistory } from "react-router-dom";
 
 export default function FiscaliaCrear() {
   const dispatch = useDispatch();
@@ -9,7 +12,8 @@ export default function FiscaliaCrear() {
   const [coordinador, setCordinador] = useState("");
   const [correo, setCorreo] = useState("");
   const [telefono, setTelefono] = useState("");
-  const [departamento, setDepartamento] = useState("");
+  const [departamento, setDepartamento] = useState(1);
+  const history = useHistory();
 
   const onSubmit = () => {
     const obj = {
@@ -20,52 +24,38 @@ export default function FiscaliaCrear() {
       departamento: departamento,
     };
     dispatch(Actions.crearFiscalia(obj));
+    history.push("/fiscalias");
   };
 
   return (
     <>
       <Box display="flex" style={{ backgroundColor: "white" }}>
-        <TextField
-          id="filled-full-width"
-          style={{ margin: 8 }}
-          placeholder="Nombre"
-          fullWidth
-          margin="normal"
-          variant="filled"
-          onChange={(e) => setnombre(e.target.value)}
-          InputLabelProps={{
-            shrink: true,
-          }}
+        <InputLabel
+          id={"idnombre"}
+          placeholder={"Nombre"}
+          onchange={(e) => setnombre(e.target.value)}
         />
-        <TextField
-          id="cordinador"
-          style={{ margin: 8 }}
-          placeholder="Coordinador"
-          fullWidth
-          onChange={(e) => setCordinador(e.target.value)}
-          margin="normal"
-          variant="filled"
-          InputLabelProps={{
-            shrink: true,
-          }}
+        <InputLabel
+          id={"idcordinador"}
+          placeholder={"Coordinador"}
+          onchange={(e) => setCordinador(e.target.value)}
         />
       </Box>
       <Box display="flex" style={{ backgroundColor: "white" }}>
-        <TextField
-          id="filled-full-width"
-          style={{ margin: 8 }}
-          placeholder="Correo"
-          fullWidth
-          onChange={(e) => setCorreo(e.target.value)}
-          margin="normal"
-          variant="filled"
-          InputLabelProps={{
-            shrink: true,
-          }}
+        <InputLabel
+          id={"idcorreo"}
+          placeholder={"Correo"}
+          onchange={(e) => setCorreo(e.target.value)}
         />
+        <InputLabel
+          id={"idtelefono"}
+          placeholder={"Telefono"}
+          onchange={(e) => setTelefono(e.target.value)}
+        />
+      </Box>
+      <Box display="flex" style={{ backgroundColor: "white" }}>
         <Select
-          id="filled-full-width"
-          className="text-withe"
+          className="m-2"
           type="submit"
           fullWidth
           defaultValue={1}
@@ -78,29 +68,18 @@ export default function FiscaliaCrear() {
           <MenuItem value={3}>Peten</MenuItem>
           <MenuItem value={4}>Solola</MenuItem>
         </Select>
+
+        <div className="w-full"></div>
       </Box>
-      <Box display="flex" style={{ backgroundColor: "white" }}>
-        <TextField
-          id="filled-full-width"
-          style={{ margin: 8 }}
-          placeholder="Telefono"
-          fullWidth
-          onChange={(e) => setTelefono(e.target.value)}
-          margin="normal"
-          variant="filled"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-      </Box>
-      <Button
-        variant="contained"
-        color="primary"
-        style={{ backgroundColor: "#EFDD42", margin: "10px", color: "black" }}
-        onClick={() => onSubmit()}
-      >
-        Agregar Fiscalia
-      </Button>
+      <div className="flex justify-end m-4">
+        <button
+          onClick={() => onSubmit()}
+          className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded-full"
+        >
+          <SaveIcon />
+          CREAR
+        </button>
+      </div>
     </>
   );
 }

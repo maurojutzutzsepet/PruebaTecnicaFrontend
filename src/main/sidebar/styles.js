@@ -1,9 +1,10 @@
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 const drawerWidth = 243;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    background: "#E7EAF3",
   },
   appBar: {
     backgroundColor: "#e7eaf3",
@@ -15,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBarShift: {
     backgroundColor: "#e7eaf3",
+
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(["width", "margin"], {
@@ -66,6 +68,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
+    marginBottom: "660px",
   },
 }));
 

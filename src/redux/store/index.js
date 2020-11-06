@@ -5,8 +5,9 @@ const reducers = combineReducers({
   FiscaliaReducers,
 });
 
-export default () => {
+const store = () => {
   return {
     ...createStore(reducers, applyMiddleware(ReduxThunk)),
   };
 };
+export default store;
